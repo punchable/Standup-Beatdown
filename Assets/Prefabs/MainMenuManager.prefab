@@ -1,0 +1,62 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &6277439050877387160
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6277439050877387162}
+  - component: {fileID: 6277439050877387163}
+  m_Layer: 0
+  m_Name: MainMenuManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6277439050877387162
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6277439050877387160}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6277439050877387163
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6277439050877387160}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7a4316b7cd46cb409569e4785135859, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  master: {fileID: 5817585503190158173, guid: 57ec6825a238a704786ac658991d2d8f, type: 3}
+  manager: {fileID: 4855076893615951719, guid: 6c27b482123521648a05ef7a96a0ab68, type: 3}
+  input: {fileID: 0}
+  menuOptions:
+  - {fileID: 5468526667290788390, guid: 2a0991af97e33234fa192bebeb4e40f8, type: 3}
+  - {fileID: 6004281500967001266, guid: 82e7c2a0aff62464283c910fed8a5c92, type: 3}
+  - {fileID: 2528962915136942299, guid: 6c18c7a17cfc6994e826942945a06e4f, type: 3}
+  - {fileID: 679476744284682748, guid: 73f259581b0877149aa80ee52e7ac49f, type: 3}
+  - {fileID: 7768381581290735984, guid: d0c67454268457648888fe93b43b5c14, type: 3}
+  p1Preview: {fileID: 8556441392269591043, guid: 40d8d09900d73e141ac60f13cbbc952b,
+    type: 3}
+  p2Preview: {fileID: 1444422635024162461, guid: ace5e55786cfdb84883f1d0110fdffb3,
+    type: 3}
+  lockedIn1: 0
+  lockedIn2: 0
+  timer1: 0
+  timer2: 0
