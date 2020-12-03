@@ -18,11 +18,14 @@ public class PreMenuManager : MonoBehaviour
     private int activeElement1 = 0;
     public ButtonRef[] menuOptions;
     public ButtonRef[] controlOptions;
+    public ButtonRef[] preControls;
 
     [SerializeField]
     private GameObject controlsPanel;
     [SerializeField]
     private GameObject preMenuPanel;
+    [SerializeField]
+    private GameObject preControlsPanel;
 
     [SerializeField]
     private GameObject controlsTextP1;
@@ -32,7 +35,7 @@ public class PreMenuManager : MonoBehaviour
     private void Start()
     {
         master = FindObjectOfType<Master>();
-        master.GameState = "preMenu";
+        master.GameState = "preControls";
     }
    
     private void Update()
@@ -43,6 +46,37 @@ public class PreMenuManager : MonoBehaviour
         {
             switch (master.GameState)
             {
+                case "preControls":
+                    preControls[activeElement1].selectedP1 = true;
+                    preControls[activeElement1].selectedP2 = false;
+                    if (input.vertP1KB > 0 || input.vertP2KB > 0 || input.vertP1Joy < 0)
+                    {
+                        preControls[activeElement1].selectedP1 = false;
+                        if (activeElement1 > 0)
+                        {
+                            activeElement1--;
+                        }
+                        else
+                        {
+                            activeElement1 = preControls.Length - 1;
+                        }
+                    }
+
+                    if (input.vertP1KB < 0 || input.vertP2KB < 0 || input.vertP1Joy > 0)
+                    {
+                        preControls[activeElement1].selectedP1 = false;
+                        if (activeElement1 < preControls.Length - 1)
+                        {
+                            activeElement1++;
+                        }
+                        else
+                        {
+                            activeElement1 = 0;
+                        }
+                    }
+                    timer = inputDelay;
+                    break;
+
                 case "preMenu":
                     menuOptions[activeElement1].selectedP1 = true;
                     if (input.vertP1KB > 0 || input.vertP2KB > 0 || input.vertP1Joy < 0)
@@ -115,6 +149,21 @@ public class PreMenuManager : MonoBehaviour
             {
                 HandleControlOptions();
             }
+            else if (master.GameState == "preControls")
+            {
+                switch (activeElement1)
+                {
+                    case 0:
+                        master.ControlState = "controller";
+                        master.ControlStateP2 = "controller";
+                        break;
+                    case 1:
+                        master.ControlState = "keyboard";
+                        master.ControlStateP2 = "keyboard";
+                        break;
+                }
+                master.GameState = "preMenu";
+            }
         }
 
         if (Input.GetButtonDown("P1KBCancel"))
@@ -127,6 +176,7 @@ public class PreMenuManager : MonoBehaviour
         if (master.GameState == "preMenu")
         {
             controlsPanel.SetActive(false);
+            preControlsPanel.SetActive(false);
             preMenuPanel.SetActive(true);
         }
         else if (master.GameState == "controlsConfig")
@@ -134,7 +184,14 @@ public class PreMenuManager : MonoBehaviour
             controlsTextP1.GetComponent<Text>().text = "Current Device: " + master.ControlState;
             controlsTextP2.GetComponent<Text>().text = "Current Device: " + master.ControlStateP2;
             controlsPanel.SetActive(true);
+            preControlsPanel.SetActive(false);
             preMenuPanel.SetActive(false);
+        }
+        else if (master.GameState == "preControls")
+        {
+            preControlsPanel.SetActive(true);
+            preMenuPanel.SetActive(false);
+            controlsPanel.SetActive(false);
         }
 
         void HandleSelectedOption()
