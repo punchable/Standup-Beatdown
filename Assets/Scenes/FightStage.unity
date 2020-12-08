@@ -483,12 +483,18 @@ MonoBehaviour:
   horizP2Joy: 0
   vertP2KB: 0
   horizP2KB: 0
-  controllerP1: 
-  controllerP2: 
   P1KBJump: 32
-  P1JoyJump: 350
   P2KBJump: 13
-  P2JoyJump: 370
+  P1KBMedKick: 99
+  P1JoyMedKick: 350
+  P1KBMedPunch: 118
+  P1JoyMedPunch: 351
+  P1JoyPause: 357
+  P2KBMedKick: 107
+  P2JoyMedKick: 370
+  P2KBMedPunch: 112
+  P2JoyMedPunch: 371
+  P2JoyPause: 377
 --- !u!114 &358376273 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4019286907058426791, guid: 54125191d2a069b4daff74a3f4ef439a,
@@ -820,6 +826,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6927558857635788338, guid: 54125191d2a069b4daff74a3f4ef439a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7259101066411537503, guid: 54125191d2a069b4daff74a3f4ef439a,
         type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -839,6 +850,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_SizeDelta.x
       value: 90.0002
+      objectReference: {fileID: 0}
+    - target: {fileID: 8027653848749830020, guid: 54125191d2a069b4daff74a3f4ef439a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 555198467135677095, guid: 54125191d2a069b4daff74a3f4ef439a, type: 3}

@@ -13,7 +13,7 @@ public class PreMenuManager : MonoBehaviour
     public InputManager input;
 
     private float timer;
-    private float inputDelay = 0.25f;
+    private float inputDelay = 0.15f;
 
     private int activeElement1 = 0;
     public ButtonRef[] menuOptions;
@@ -32,6 +32,16 @@ public class PreMenuManager : MonoBehaviour
     [SerializeField]
     private GameObject controlsTextP2;
 
+    [SerializeField]
+    private Text p1Movement;
+    [SerializeField]
+    private Text p1Attacks;
+    [SerializeField]
+    private Text p2Movement;
+    [SerializeField]
+    private Text p2Attacks;
+
+
     private void Start()
     {
         master = FindObjectOfType<Master>();
@@ -49,7 +59,7 @@ public class PreMenuManager : MonoBehaviour
                 case "preControls":
                     preControls[activeElement1].selectedP1 = true;
                     preControls[activeElement1].selectedP2 = false;
-                    if (input.vertP1KB > 0 || input.vertP2KB > 0 || input.vertP1Joy < 0)
+                    if (input.horizP1KB > 0 || input.horizP1Joy < 0)
                     {
                         preControls[activeElement1].selectedP1 = false;
                         if (activeElement1 > 0)
@@ -62,7 +72,7 @@ public class PreMenuManager : MonoBehaviour
                         }
                     }
 
-                    if (input.vertP1KB < 0 || input.vertP2KB < 0 || input.vertP1Joy > 0)
+                    if (input.horizP1KB < 0 || input.horizP1Joy > 0)
                     {
                         preControls[activeElement1].selectedP1 = false;
                         if (activeElement1 < preControls.Length - 1)
@@ -79,7 +89,7 @@ public class PreMenuManager : MonoBehaviour
 
                 case "preMenu":
                     menuOptions[activeElement1].selectedP1 = true;
-                    if (input.vertP1KB > 0 || input.vertP2KB > 0 || input.vertP1Joy < 0)
+                    if (input.vertP1KB > 0 || input.vertP1Joy < 0)
                     {
                         menuOptions[activeElement1].selectedP1 = false;
                         if (activeElement1 > 0)
@@ -92,7 +102,7 @@ public class PreMenuManager : MonoBehaviour
                         }
                     }
 
-                    if (input.vertP1KB < 0 || input.vertP2KB < 0 || input.vertP1Joy > 0)
+                    if (input.vertP1KB < 0 || input.vertP1Joy > 0)
                     {
                         menuOptions[activeElement1].selectedP1 = false;
                         if (activeElement1 < menuOptions.Length - 1)
@@ -109,7 +119,8 @@ public class PreMenuManager : MonoBehaviour
 
                 case "controlsConfig":
                     controlOptions[activeElement1].selectedP1 = true;
-                    if (input.vertP1KB < 0 || input.vertP2KB < 0 || input.vertP1Joy < 0)
+                    controlOptions[activeElement1].selectedP2 = false;
+                    if (input.horizP1KB < 0 || input.horizP1Joy < 0)
                     {
                         controlOptions[activeElement1].selectedP1 = false;
                         if (activeElement1 > 0)
@@ -122,7 +133,7 @@ public class PreMenuManager : MonoBehaviour
                         }
                     }
 
-                    if (input.vertP1KB > 0 || input.vertP2KB > 0 || input.vertP1Joy > 0)
+                    if (input.horizP1KB > 0 || input.horizP1Joy > 0)
                     {
                         controlOptions[activeElement1].selectedP1 = false;
                         if (activeElement1 < controlOptions.Length - 1)
@@ -156,13 +167,18 @@ public class PreMenuManager : MonoBehaviour
                     case 0:
                         master.ControlState = "controller";
                         master.ControlStateP2 = "controller";
+                        SetControlsText(0);
+                        SetControlsText(1);
+                        master.GameState = "preMenu";
                         break;
                     case 1:
                         master.ControlState = "keyboard";
                         master.ControlStateP2 = "keyboard";
+                        SetControlsText(0);
+                        SetControlsText(1);
+                        master.GameState = "preMenu";
                         break;
                 }
-                master.GameState = "preMenu";
             }
         }
 
@@ -226,6 +242,7 @@ public class PreMenuManager : MonoBehaviour
                     {
                         master.ControlState = "keyboard";
                     }
+                    SetControlsText(0);
                     break;
                 case 1:
                     if (master.ControlStateP2 == "keyboard")
@@ -236,6 +253,10 @@ public class PreMenuManager : MonoBehaviour
                     {
                         master.ControlStateP2 = "keyboard";
                     }
+                    SetControlsText(1);
+                    break;
+                case 2:
+                    master.GameState = "preMenu";
                     break;
             }
         }
@@ -270,6 +291,11 @@ public class PreMenuManager : MonoBehaviour
         master.GameState = "controlsConfig";
     }
 
+    public void CloseControls()
+    {
+        master.GameState = "preMenu";
+    }
+
     public void ToggleControls(int player)
     {
         switch (player)
@@ -292,6 +318,56 @@ public class PreMenuManager : MonoBehaviour
                 else if (master.ControlStateP2 == "controller")
                 {
                     master.ControlStateP2 = "keyboard";
+                }
+                break;
+        }
+        SetControlsText(player);
+    }
+
+    public void PreControls(int ctrl)
+    {
+        switch (ctrl)
+        {
+            case 0:
+                master.ControlState = "controller";
+                master.ControlStateP2 = "controller";
+                break;
+            case 1:
+                master.ControlState = "keyboard";
+                master.ControlStateP2 = "keyboard";
+                break;
+        }
+        master.GameState = "preMenu";
+        SetControlsText(0);
+        SetControlsText(1);
+    }
+
+    public void SetControlsText(int ID)
+    {
+        switch (ID)
+        {
+            case 0:
+                if(master.ControlState == "keyboard")
+                {
+                    p1Movement.text = "Left/Right:  [A]/[S]" + "\r\n" + "Jump:  [W]";
+                    p1Attacks.text = "Medium Kick: [C]" + "\r\n" + "Medium Punch: [V]";
+                }
+                else
+                {
+                    p1Movement.text = "Left/Right:  Left Joystick" + "\r\n" + "Jump:  Up on Left Joystick";
+                    p1Attacks.text = "Medium Kick: [A]" + "\r\n" + "Medium Punch: [B]";
+                }
+                break;
+            case 1:
+                if (master.ControlState == "keyboard")
+                {
+                    p2Movement.text = "Left/Right:  [left/right arrows]" + "\r\n" + "Jump:  [up arrow]";
+                    p2Attacks.text = "Medium Kick: [P]" + "\r\n" + "Medium Punch: [K]";
+                }
+                else
+                {
+                    p2Movement.text = "Left/Right:  Left Joystick" + "\r\n" + "Jump:  Up on Left Joystick";
+                    p2Attacks.text = "Medium Kick: [A]" + "\r\n" + "Medium Punch: [B]";
                 }
                 break;
         }

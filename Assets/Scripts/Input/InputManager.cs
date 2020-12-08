@@ -16,14 +16,20 @@ public class InputManager : MonoBehaviour
     public float vertP2KB;
     public float horizP2KB;
 
-    public string controllerP1;
-    public string controllerP2;
+    public KeyCode P1KBJump = KeyCode.A;
+    public KeyCode P2KBJump = KeyCode.UpArrow;
 
-    public KeyCode P1KBJump = KeyCode.Space;
-    public KeyCode P1JoyJump = KeyCode.Joystick1Button0;
+    public KeyCode P1KBMedKick = KeyCode.C;
+    public KeyCode P1JoyMedKick = KeyCode.Joystick1Button0;
+    public KeyCode P1KBMedPunch = KeyCode.V;
+    public KeyCode P1JoyMedPunch = KeyCode.Joystick1Button1;
+    public KeyCode P1JoyPause = KeyCode.Joystick1Button7;
 
-    public KeyCode P2KBJump = KeyCode.Return;
-    public KeyCode P2JoyJump = KeyCode.Joystick2Button0;
+    public KeyCode P2KBMedKick = KeyCode.K;
+    public KeyCode P2JoyMedKick = KeyCode.Joystick2Button0;
+    public KeyCode P2KBMedPunch = KeyCode.P;
+    public KeyCode P2JoyMedPunch = KeyCode.Joystick2Button1;
+    public KeyCode P2JoyPause = KeyCode.Joystick2Button7;
 
     void Start()
     {
@@ -83,5 +89,42 @@ public class InputManager : MonoBehaviour
             vertP2Joy = Input.GetAxis("VertJoyP2");
             horizP2Joy = Input.GetAxis("HorizJoyP2");
         }
+    }
+
+    public void SetKey(int id, string input, KeyCode key)
+    {
+        switch (id)
+        {
+            case 0:
+                if (master.ControlState == "controller")
+                {
+                    switch (input)
+                    {
+                        case "P1KBJump":
+                            P1KBJump = key;
+                            break;
+                    }
+                }
+                else
+                {
+
+                }
+                break;
+            case 1:
+                if (master.ControlState == "keyboard")
+                {
+
+                }
+                else
+                {
+
+                }
+                break;
+        }
+    }
+
+    public void ShowKeyOptions()
+    {
+
     }
 }

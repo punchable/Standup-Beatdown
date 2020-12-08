@@ -79,6 +79,14 @@ public class PlayerAnimator
     public void EndAnim()
     {
         SetAnimation("idle");
+        player.State.SetState(PLAYERSTATE.IDLE);
+
+        if (currAnim == "hit")
+        {
+            animations["hit"].Active = false;
+            animations["idle"].Active = true;
+            currAnim = "idle";
+        }
     }
 }
 

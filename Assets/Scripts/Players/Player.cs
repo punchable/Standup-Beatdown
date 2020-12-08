@@ -15,6 +15,8 @@ public class Player : MonoBehaviour
     [SerializeField]
     private PlayerAnimator playerAnimator;
 
+    private InputManager inputs;
+
     public GameObject MuShPrefab;
     public float Speed;
 
@@ -71,6 +73,7 @@ public class Player : MonoBehaviour
         playerAnimator = new PlayerAnimator(this);
         master = FindObjectOfType<Master>();
         manager = FindObjectOfType<UiManager>();
+        inputs = FindObjectOfType<InputManager>();
     }
 
     private void Start()
@@ -80,7 +83,7 @@ public class Player : MonoBehaviour
 
         PlayerAnimations[] animations = new PlayerAnimations[]
         {
-            new PlayerAnimations("idle"),
+            new PlayerAnimations("idle", "hit"),
             new PlayerAnimations("walk", "jumping"),
             new PlayerAnimations("walkBack", "jumping"),
             new PlayerAnimations("jumping", "jumpMedKick", "jumpMedPunch"),
@@ -95,6 +98,7 @@ public class Player : MonoBehaviour
         playerAnimator.AddAnimations(animations);
 
         Master.Instance.GameState = "fighting";
+        state.SetState(PLAYERSTATE.IDLE);
     }
 
     public void Update()
@@ -113,6 +117,11 @@ public class Player : MonoBehaviour
             log.InvincibleTimer = 0;
             log.IsInvincible = false;
         }
+
+        if (master.GameState == "paused")
+        {
+            state.SetState(PLAYERSTATE.PAUSED);
+        }
     }
 
     public void FixedUpdate()
@@ -130,6 +139,8 @@ public class Player : MonoBehaviour
                 return;
 
             playerAnimator.SetAnimation("hit");
+            movement.AnimTimer = 1.0f;
+            state.SetState(PLAYERSTATE.HIT);
             log.IsInvincible = true;
             log.InvincibleTimer = log.TimeInvincible;
         }
@@ -143,17 +154,42 @@ public class Player : MonoBehaviour
         {
             case 0:
                 fighterSel = Master.Instance.FighterSel1;
-                commands.Add(new JumpCommand(this, Log.JumpKey));
-                commands.Add(new MKCommand(this, Log.MedKickKey));
-                commands.Add(new MPCommand(this, Log.MedPunchKey));
-                commands.Add(new PauseCommand(this, KeyCode.Escape));
+
+                switch (Master.Instance.ControlState)
+                {
+                    case "controller":
+                        //commands.Add(new JumpCommand(this, inputs.vertP1Joy)); shit.. gotta convert this somehow to account for Joystick pos/neg value
+                        commands.Add(new MKCommand(this, inputs.P1JoyMedKick));
+                        commands.Add(new MPCommand(this, inputs.P1JoyMedPunch));
+                        commands.Add(new PauseCommand(this, inputs.P1JoyPause));
+                        break;
+                    case "keyboard":
+                        commands.Add(new JumpCommand(this, inputs.P1KBJump));
+                        commands.Add(new MKCommand(this, inputs.P1KBMedKick));
+                        commands.Add(new MPCommand(this, inputs.P1KBMedPunch));
+                        commands.Add(new PauseCommand(this, KeyCode.Escape));
+                        break;
+                }
+
                 break;
             case 1:
                 fighterSel = Master.Instance.FighterSel2;
-                commands.Add(new JumpCommand(this, Log.JumpKey));
-                commands.Add(new MKCommand(this, Log.MedKickKey));
-                commands.Add(new MPCommand(this, Log.MedPunchKey));
-                commands.Add(new PauseCommand(this, KeyCode.Escape));
+
+                switch (Master.Instance.ControlStateP2)
+                {
+                    case "controller":
+                        //commands.Add(new JumpCommand(this, inputs.vertP2Joy)); shit.. gotta convert this somehow to account for Joystick pos/neg value
+                        commands.Add(new MKCommand(this, inputs.P2JoyMedKick));
+                        commands.Add(new MPCommand(this, inputs.P2JoyMedPunch));
+                        commands.Add(new PauseCommand(this, inputs.P2JoyPause));
+                        break;
+                    case "keyboard":
+                        commands.Add(new JumpCommand(this, inputs.P2KBJump));
+                        commands.Add(new MKCommand(this, inputs.P2KBMedKick));
+                        commands.Add(new MPCommand(this, inputs.P2KBMedPunch));
+                        commands.Add(new PauseCommand(this, KeyCode.Escape));
+                        break;
+                }
                 break;
         }
     }
@@ -190,17 +226,15 @@ public class Player : MonoBehaviour
         state.SetState(PLAYERSTATE.IDLE);
     }
 
-    public void OnTriggerStay2D(Collider2D other)
+    public void OnTriggerEnter2D(Collider2D other)
     {
         Player opponent = other.GetComponent<Player>();
 
         if (opponent != null)
         {
-            if (opponent.Movement.IsAttacking())
+            if (opponent.State.currentState == PLAYERSTATE.ATTACKING)
             {
                 AdjustHealth(-1);
-                playerAnimator.SetAnimation("hit");
-                playerAnimator.Timer = 1.0f;
             }
         }
     }

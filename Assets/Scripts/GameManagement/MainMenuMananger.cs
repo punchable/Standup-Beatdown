@@ -18,7 +18,7 @@ public class MainMenuMananger : MonoBehaviour
 
     private float timerDelay1;
     private float timerDelay2;
-    private float inputDelay = 0.25f;
+    private float inputDelay = 0.15f;
 
     [SerializeField]
     private GameObject p1Preview;
@@ -62,33 +62,68 @@ public class MainMenuMananger : MonoBehaviour
         {
             if (timerDelay1 <= 0)
             {
-                if (input.vertP1KB > 0 || input.vertP1Joy < 0 || input.horizP1KB < 0 || input.horizP1Joy > 0)
+                switch (Master.Instance.ControlState)
                 {
-                    menuOptions[activeElement1].selectedP1 = false;
-                    if (activeElement1 > 0)
-                    {
-                        activeElement1--;
-                    }
-                    else
-                    {
-                        activeElement1 = menuOptions.Length - 1;
-                    }
-                }
+                    case "controller":
+                        if (input.horizP1Joy > 0)
+                        {
+                            menuOptions[activeElement1].selectedP1 = false;
+                            if (activeElement1 > 0)
+                            {
+                                activeElement1--;
+                            }
+                            else
+                            {
+                                activeElement1 = menuOptions.Length - 1;
+                            }
+                        }
 
-                if (input.vertP1KB < 0 || input.vertP1Joy > 0 || input.horizP1KB > 0 || input.horizP1Joy < 0)
-                {
-                    menuOptions[activeElement1].selectedP1 = false;
-                    if (activeElement1 < menuOptions.Length - 1)
-                    {
-                        activeElement1++;
-                    }
-                    else
-                    {
-                        activeElement1 = 0;
-                    }
-                }
+                        if (input.horizP1Joy < 0)
+                        {
+                            menuOptions[activeElement1].selectedP1 = false;
+                            if (activeElement1 < menuOptions.Length - 1)
+                            {
+                                activeElement1++;
+                            }
+                            else
+                            {
+                                activeElement1 = 0;
+                            }
+                        }
 
-                timerDelay1 = inputDelay;
+                        timerDelay1 = inputDelay;
+                        break;
+
+                    case "keyboard":
+                        if (input.horizP1KB < 0)
+                        {
+                            menuOptions[activeElement1].selectedP1 = false;
+                            if (activeElement1 > 0)
+                            {
+                                activeElement1--;
+                            }
+                            else
+                            {
+                                activeElement1 = menuOptions.Length - 1;
+                            }
+                        }
+
+                        if (input.horizP1KB > 0)
+                        {
+                            menuOptions[activeElement1].selectedP1 = false;
+                            if (activeElement1 < menuOptions.Length - 1)
+                            {
+                                activeElement1++;
+                            }
+                            else
+                            {
+                                activeElement1 = 0;
+                            }
+                        }
+
+                        timerDelay1 = inputDelay;
+                        break;
+                }
             }
         }
 
@@ -96,34 +131,66 @@ public class MainMenuMananger : MonoBehaviour
         {
             if (timerDelay2 <= 0)
             {
-
-                if (input.vertP2KB > 0 || input.vertP2Joy < 0 || input.horizP2KB < 0 || input.horizP2Joy > 0)
+                switch (Master.Instance.ControlStateP2)
                 {
-                    menuOptions[activeElement2].selectedP2 = false;
-                    if (activeElement2 > 0)
-                    {
-                        activeElement2--;
-                    }
-                    else
-                    {
-                        activeElement2 = menuOptions.Length - 1;
-                    }
-                }
+                    case "controller":
+                        if (input.horizP2Joy > 0)
+                        {
+                            menuOptions[activeElement2].selectedP2 = false;
+                            if (activeElement2 > 0)
+                            {
+                                activeElement2--;
+                            }
+                            else
+                            {
+                                activeElement2 = menuOptions.Length - 1;
+                            }
+                        }
 
-                if (input.vertP2KB < 0 || input.vertP2Joy > 0 || input.horizP2KB > 0 || input.horizP2Joy < 0)
-                {
-                    menuOptions[activeElement2].selectedP2 = false;
-                    if (activeElement2 < menuOptions.Length - 1)
-                    {
-                        activeElement2++;
-                    }
-                    else
-                    {
-                        activeElement2 = 0;
-                    }
-                }
+                        if (input.horizP2Joy < 0)
+                        {
+                            menuOptions[activeElement2].selectedP2 = false;
+                            if (activeElement2 < menuOptions.Length - 1)
+                            {
+                                activeElement2++;
+                            }
+                            else
+                            {
+                                activeElement2 = 0;
+                            }
+                        }
+                        timerDelay2 = inputDelay;
+                        break;
 
-                timerDelay2 = inputDelay;
+                    case "keyboard":
+                        if (input.horizP2KB < 0 )
+                        {
+                            menuOptions[activeElement2].selectedP2 = false;
+                            if (activeElement2 > 0)
+                            {
+                                activeElement2--;
+                            }
+                            else
+                            {
+                                activeElement2 = menuOptions.Length - 1;
+                            }
+                        }
+
+                        if (input.horizP2KB > 0 )
+                        {
+                            menuOptions[activeElement2].selectedP2 = false;
+                            if (activeElement2 < menuOptions.Length - 1)
+                            {
+                                activeElement2++;
+                            }
+                            else
+                            {
+                                activeElement2 = 0;
+                            }
+                        }
+                        timerDelay2 = inputDelay;
+                        break;
+                }
             }
         }
 

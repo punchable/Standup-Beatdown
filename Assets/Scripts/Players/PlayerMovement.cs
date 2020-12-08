@@ -5,12 +5,16 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     private Player player;
+    private InputManager inputs;
 
     private float animTimer = 0;
+
+    public float AnimTimer { get => animTimer; set => animTimer = value; }
 
     private void Awake()
     {
         player = GetComponent<Player>();
+        inputs = FindObjectOfType<InputManager>();
     }
 
     private void Update()
@@ -30,27 +34,29 @@ public class PlayerMovement : MonoBehaviour
     {
         if (player.State.currentState != PLAYERSTATE.PAUSED)
         {
-            if (player.ID == 0)
+            switch (player.ID)
             {
-                if (Master.Instance.ControlState == "keyboard")
-                {
-                    player.Direction = new Vector2(Input.GetAxisRaw("HorizKBP1"), player.Rb.velocity.y);
-                }
-                else if (Master.Instance.ControlState == "controller")
-                {
-                    player.Direction = new Vector2(Input.GetAxisRaw("HorizJoyP1"), player.Rb.velocity.y);
-                }
-            }
-            else
-            {
-                if (Master.Instance.ControlStateP2 == "keyboard")
-                {
-                    player.Direction = new Vector2(Input.GetAxisRaw("HorizKBP2"), player.Rb.velocity.y);
-                }
-                else if (Master.Instance.ControlStateP2 == "controller")
-                {
-                    player.Direction = new Vector2(Input.GetAxisRaw("HorizJoyP2"), player.Rb.velocity.y);
-                }
+                case 0:
+                    if (Master.Instance.ControlState == "keyboard")
+                    {
+                        player.Direction = new Vector2(inputs.horizP1KB, player.Rb.velocity.y);
+                    }
+                    else if (Master.Instance.ControlState == "controller")
+                    {
+                        player.Direction = new Vector2(inputs.horizP1Joy, player.Rb.velocity.y);
+                    }
+                break;
+
+                case 1:
+                    if (Master.Instance.ControlStateP2 == "keyboard")
+                    {
+                        player.Direction = new Vector2(inputs.horizP2KB, player.Rb.velocity.y);
+                    }
+                    else if (Master.Instance.ControlStateP2 == "controller")
+                    {
+                        player.Direction = new Vector2(inputs.horizP2Joy, player.Rb.velocity.y);
+                    }
+                break;
             }
 
             foreach (Commands command in player.commands)
@@ -86,6 +92,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (player.Direction.x != 0 && player.Log.isGrounded && !IsAttacking())
         {
+            player.State.SetState(PLAYERSTATE.WALK);
             //transform.localScale = new Vector3(player.Direction.x < 0 ? 1 : -1, 1, 1);
             switch (player.ID)
             {
@@ -93,30 +100,24 @@ public class PlayerMovement : MonoBehaviour
                     if (player.Direction.x < 0)
                     {
                         player.PlayerAnimator.SetAnimation("walkBack");
-                        player.State.SetState(PLAYERSTATE.WALK);
                     }
                     else if (player.Direction.x > 0)
                     {
                         player.PlayerAnimator.SetAnimation("walk");
-                        player.State.SetState(PLAYERSTATE.WALK);
                     }
                     break;
                 case 1:
                     if (player.Direction.x > 0)
                     {
                         player.PlayerAnimator.SetAnimation("walkBack");
-                        player.State.SetState(PLAYERSTATE.WALK);
                     }
                     else if (player.Direction.x < 0)
                     {
                         player.PlayerAnimator.SetAnimation("walk");
-                        player.State.SetState(PLAYERSTATE.WALK);
                     }
                     break;
             }
-
         }
-
 
         if (player.Direction.x == 0 && player.Rb.velocity.y == 0 && IsGrounded() && !IsAttacking())
         {
@@ -127,26 +128,28 @@ public class PlayerMovement : MonoBehaviour
 
     public void Jump()
     {
-        if (IsGrounded())
+        if (player.Log.isGrounded)
         {
             player.Rb.AddForce(new Vector2(0, player.Log.JumpForce), ForceMode2D.Impulse);
             player.PlayerAnimator.SetAnimation("jumping");
             player.Log.isGrounded = false;
+            player.State.SetSubState(PLAYERSTATE.JUMPING);
         }
     }
 
     public void mediumKick()
     {
-        if (player.Log.isGrounded)
+        if (player.Log.isGrounded && player.State.currentState != PLAYERSTATE.ATTACKING)
         {
             player.PlayerAnimator.SetAnimation("mediumKick");
             animTimer = player.PlayerAnimator.medKick;
-
+            player.State.SetState(PLAYERSTATE.ATTACKING);
         }
-        else
+        else if (!player.Log.isGrounded && player.State.currentState != PLAYERSTATE.ATTACKING)
         {
             player.PlayerAnimator.SetAnimation("jumpMedKick");
             animTimer = player.PlayerAnimator.medKick;
+            player.State.SetState(PLAYERSTATE.ATTACKING);
         }
     }
 
@@ -156,11 +159,13 @@ public class PlayerMovement : MonoBehaviour
         {
             player.PlayerAnimator.SetAnimation("mediumPunch");
             animTimer = player.PlayerAnimator.medPunch;
+            player.State.SetState(PLAYERSTATE.ATTACKING);
         }
         else
         {
             player.PlayerAnimator.SetAnimation("jumpMedPunch");
             animTimer = player.PlayerAnimator.medPunch;
+            player.State.SetState(PLAYERSTATE.ATTACKING);
         }
     }
 
@@ -172,10 +177,12 @@ public class PlayerMovement : MonoBehaviour
         if (hit.collider != null && (hit.collider != player.BodyCollider || hit.collider != player.AttackCollider || hit.collider != player.FootCollider))
         {
             player.Log.isGrounded = true;
+            player.State.SetSubState(PLAYERSTATE.GROUNDED);
         }
         else
         {
             player.Log.isGrounded = false;
+            player.State.SetSubState(PLAYERSTATE.JUMPING);
         }
         return player.Log.isGrounded;
         
@@ -220,7 +227,7 @@ public class PlayerMovement : MonoBehaviour
 
     public bool IsAttacking()
     {
-        if (player.PlayerAnimator.CurrAnim == "mediumKick" || player.PlayerAnimator.CurrAnim == "jumpMedKick" || player.PlayerAnimator.CurrAnim == "mediumPunch")
+        if (player.State.currentState == PLAYERSTATE.ATTACKING)
         {
             return true;
         }

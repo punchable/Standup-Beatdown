@@ -35,7 +35,7 @@ public class JumpCommand : Commands
         this.player = player;
     }
 
-    public override void GetKeyUp()
+    public override void GetKeyDown()
     {
         player.Movement.Jump();
     }
@@ -49,7 +49,7 @@ public class MKCommand : Commands
         this.player = player;
     }
 
-    public override void GetKeyUp()
+    public override void GetKeyDown()
     {
         player.Movement.mediumKick();
     }
@@ -64,7 +64,7 @@ public class MPCommand : Commands
         this.player = player;
     }
 
-    public override void GetKeyUp()
+    public override void GetKeyDown()
     {
         player.Movement.mediumPunch();
     }
@@ -79,7 +79,7 @@ public class PauseCommand : Commands
         this.player = player;
     }
 
-    public override void GetKeyUp()
+    public override void GetKeyDown()
     {
         if (player.State.currentState != PLAYERSTATE.PAUSED)
         {

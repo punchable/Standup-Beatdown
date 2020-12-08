@@ -1,31 +1,32 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-
 public class PlayerState : MonoBehaviour
 {
 
-	public PLAYERSTATE currentState = PLAYERSTATE.IDLE;
+	public PLAYERSTATE currentState;
+	public PLAYERSTATE subState;
 
 	public void SetState(PLAYERSTATE state)
 	{
 		currentState = state;
 	}
+
+	public void SetSubState(PLAYERSTATE state)
+    {
+		subState = state;
+    }
 }
 
 public enum PLAYERSTATE
 {
 	IDLE,
 	WALK,
+	GROUNDED,
 	JUMPING,
-	JUMPKICK,
-	PUNCH,
-	KICK,
+	ATTACKING,
 	DEFENDING,
-	THROWKNIFE,
 	HIT,
-	PICKUPITEM,
-	KNOCKDOWN,
 	DEATH,
 	PAUSED,
 };
