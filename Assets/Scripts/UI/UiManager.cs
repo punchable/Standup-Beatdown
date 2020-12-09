@@ -24,22 +24,9 @@ public class UiManager : MonoBehaviour
     private float inputDelay = 0.25f;
 
     [SerializeField]
-    private GameObject p1PortraitObj;
-    [SerializeField]
-    private GameObject p2PortraitObj;
-    [SerializeField]
     private Text p1HealthTxt;
     [SerializeField]
     private Text p2HealthTxt;
-
-
-    private Image p1Portrait;
-    private Image p2Portrait;
-
-    [SerializeField]
-    private Sprite MuSh;
-    [SerializeField]
-    private Sprite BobBig;
 
     private UiUtilities util;
     public Master Master { get => master; }
@@ -63,6 +50,9 @@ public class UiManager : MonoBehaviour
 
         log.FighterSel1 = Master.Instance.FighterSel1;
         log.FighterSel2 = Master.Instance.FighterSel2;
+
+        SetUpUIP1();
+        SetUpUIP2();
     }
 
     public void Start()
@@ -72,16 +62,14 @@ public class UiManager : MonoBehaviour
 
     public void Update()
     {
-        if (master.GetScene().Equals("FightStage"))
+
+        if (Master.Instance.GameState == "paused")
         {
-            if (Master.Instance.GameState == "paused")
-            {
-                comp.PauseMenu.SetActive(true);
-            }
-            else
-            {
-                comp.PauseMenu.SetActive(false);
-            }
+            comp.PauseMenu.SetActive(true);
+        }
+        else
+        {
+            comp.PauseMenu.SetActive(false);
         }
 
         if (Master.Instance.GameState == "paused")
@@ -133,33 +121,54 @@ public class UiManager : MonoBehaviour
                     Master.Instance.GameState = "fighting";
                     break;
                 case 1:
+                    Master.Instance.GameState = "preMenu";
                     master.GoToScene("PreMenu");
                     break;
             }
         }
     }
 
-    public void SetUpUI()
+    public void SetUpUIP1()
     {
-        if (master.GetScene().Equals("FightScene"))
+        switch (log.FighterSel1)
         {
-            if (log.FighterSel1 == "MuSh")
-            {
-                p1PortraitObj.GetComponent<Image>().sprite = comp.MuSh1;
-            }
-            else if (log.FighterSel1 == "BobBig") 
-            {
-                p1PortraitObj.GetComponent<Image>().sprite = comp.BobBig1;
-            }
+            case "MuSh":
+                comp.P1Portrait.sprite = comp.MuSh1;
+                break;
+            case "BobBig":
+                comp.P1Portrait.sprite = comp.BobBig1;
+                break;
+            case "TomDan":
+                comp.P1Portrait.sprite = comp.TomDan1;
+                break;
+            case "BertBelly":
+                comp.P1Portrait.sprite = comp.BertBelly1;
+                break;
+            case "AndrewBaller":
+                comp.P1Portrait.sprite = comp.AndrewBaller1;
+                break;
+        }
+    }
 
-            if (log.FighterSel2 == "MuSh")
-            {
-                p2PortraitObj.GetComponent<Image>().sprite = comp.MuSh1;
-            }
-            else if (log.FighterSel2 == "BobBig")
-            {
-                p2PortraitObj.GetComponent<Image>().sprite = comp.BobBig1;
-            }
+    public void SetUpUIP2()
+    {
+        switch (log.FighterSel2)
+        {
+            case "MuSh":
+                comp.P2Portrait.sprite = comp.MuSh1;
+                break;
+            case "BobBig":
+                comp.P2Portrait.sprite = comp.BobBig1;
+                break;
+            case "TomDan":
+                comp.P2Portrait.sprite = comp.TomDan1;
+                break;
+            case "BertBelly":
+                comp.P2Portrait.sprite = comp.BertBelly1;
+                break;
+            case "AndrewBaller":
+                comp.P2Portrait.sprite = comp.AndrewBaller1;
+                break;
         }
     }
 

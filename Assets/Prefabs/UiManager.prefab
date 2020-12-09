@@ -47,18 +47,16 @@ MonoBehaviour:
   comp:
     pauseMenu: {fileID: 8822426505134199755, guid: afdc29f08fd4e1d44978c524171bc2e9,
       type: 3}
-    p1PortraitObj: {fileID: 6520694633013191118, guid: 32bc87fb2f434ef4b81dbbbc136a0c3c,
-      type: 3}
-    p2PortraitObj: {fileID: 8821960681561828472, guid: dea1de1543b227945af25c9be088e2e4,
-      type: 3}
     p1HealthTxt: {fileID: 6714488721935739402, guid: 7180945ddb2a77343af648fcf570c4ee,
       type: 3}
     p2HealthTxt: {fileID: 8487731697140754430, guid: d215b23b294a5ed4784bf741b658a046,
       type: 3}
-    MuSh: {fileID: 0}
-    BobBig: {fileID: 0}
+    MuSh: {fileID: 21300000, guid: 86afa8f920bd0334489250b52f744ac2, type: 3}
+    BobBig: {fileID: 21300000, guid: 580f0bf8a27b11142819638f8966910f, type: 3}
     pauseOptions: []
   log:
     fighterSel1: 
     fighterSel2: 
   input: {fileID: 0}
+  p1HealthTxt: {fileID: 0}
+  p2HealthTxt: {fileID: 0}
