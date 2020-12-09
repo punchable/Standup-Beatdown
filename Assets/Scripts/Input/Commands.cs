@@ -91,3 +91,18 @@ public class PauseCommand : Commands
         }
     }
 }
+
+public class BlockCommand : Commands
+{
+    private Player player;
+
+    public BlockCommand(Player player, KeyCode key) : base(key)
+    {
+        this.player = player;
+    }
+
+    public override void GetKeyDown()
+    {
+        player.Movement.Block();
+    }
+}

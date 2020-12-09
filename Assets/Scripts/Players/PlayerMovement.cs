@@ -137,6 +137,14 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    public void Block()
+    {
+        if (player.Log.isGrounded && !IsBlocking())
+        {
+            player.PlayerAnimator.SetAnimation("block");
+        }
+    }
+
     public void mediumKick()
     {
         if (player.Log.isGrounded && player.State.currentState != PLAYERSTATE.ATTACKING)
@@ -185,7 +193,42 @@ public class PlayerMovement : MonoBehaviour
             player.State.SetSubState(PLAYERSTATE.JUMPING);
         }
         return player.Log.isGrounded;
-        
+    }
+
+    public bool IsFalling()
+    {
+        if (player.Rb.velocity.y < 0)
+        {
+            return true;
+        }
+        return false;
+    }
+
+    public bool IsAttacking()
+    {
+        if (player.State.currentState == PLAYERSTATE.ATTACKING)
+        {
+            return true;
+        }
+        return false;
+    }
+
+    public bool IsHit()
+    {
+        if (player.State.currentState == PLAYERSTATE.HIT)
+        {
+            return true;
+        }
+        return false;
+    }
+
+    public bool IsBlocking()
+    {
+        if (player.State.currentState == PLAYERSTATE.BLOCKING)
+        {
+            return true;
+        }
+        return false;
     }
 
     public void FaceOpponent()
@@ -213,24 +256,5 @@ public class PlayerMovement : MonoBehaviour
                 Debug.Log("Broken");
             }
         }
-
-    }
-
-    public bool IsFalling()
-    {
-        if (player.Rb.velocity.y < 0)
-        {
-            return true;
-        }
-        return false;
-    }
-
-    public bool IsAttacking()
-    {
-        if (player.State.currentState == PLAYERSTATE.ATTACKING)
-        {
-            return true;
-        }
-        return false;
     }
 }

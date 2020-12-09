@@ -9,12 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2046351611397400084}
-  - component: {fileID: 4839518717675420943}
-  - component: {fileID: 2411074016013127338}
-  - component: {fileID: 281262771717666742}
   - component: {fileID: 2046351611397400083}
   - component: {fileID: 2046351611397400082}
-  - component: {fileID: 3542101045457274766}
   - component: {fileID: 6842138904750029073}
   m_Layer: 0
   m_Name: MuShPrefab
@@ -37,57 +33,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4839518717675420943
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2046351611397400081}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 91f2b3bb1d3c8d947beb735db321869a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  master: {fileID: 0}
-  manager: {fileID: 0}
-  log:
-    stage:
-      serializedVersion: 2
-      m_Bits: 256
-    medKickKey: 99
-    medPunchKey: 118
-    jumpKey: 119
-    isGrounded: 1
-  MuShPrefab: {fileID: 0}
-  Speed: 0
-  ID: 0
-  fighterSel: 
---- !u!114 &2411074016013127338
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2046351611397400081}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5b2145b126705704595ba43ed4b48d6a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &281262771717666742
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2046351611397400081}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e5527314b28d18e4ea86f1bc8680b400, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currentState: 0
 --- !u!95 &2046351611397400083
 Animator:
   serializedVersion: 3
@@ -158,27 +103,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!50 &3542101045457274766
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2046351611397400081}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1.5
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 4
 --- !u!61 &6842138904750029073
 BoxCollider2D:
   m_ObjectHideFlags: 0

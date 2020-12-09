@@ -86,6 +86,7 @@ public class Player : MonoBehaviour
             new PlayerAnimations("idle", "hit"),
             new PlayerAnimations("walk", "jumping"),
             new PlayerAnimations("walkBack", "jumping"),
+            new PlayerAnimations("block"),
             new PlayerAnimations("jumping", "jumpMedKick", "jumpMedPunch"),
             new PlayerAnimations("falling", "jumpMedKick", "jumpMedPunch"),
             new PlayerAnimations("mediumKick", "jumpMedKick"),
@@ -93,6 +94,7 @@ public class Player : MonoBehaviour
             new PlayerAnimations("mediumPunch", "jumpMedPunch"),
             new PlayerAnimations("jumpMedPunch"),
             new PlayerAnimations("hit"),
+            new PlayerAnimations("death"),
             //new PlayerAnimations(""),
         };
         playerAnimator.AddAnimations(animations);
@@ -135,8 +137,10 @@ public class Player : MonoBehaviour
     {
         if (amount < 0)
         {
-            if (log.IsInvincible)
+            if (movement.IsBlocking())
+            {
                 return;
+            }
 
             playerAnimator.SetAnimation("hit");
             movement.AnimTimer = 1.0f;
