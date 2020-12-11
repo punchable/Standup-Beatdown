@@ -218,6 +218,7 @@ MonoBehaviour:
   horizP2KB: 0
   P1KBJump: 32
   P2KBJump: 13
+  P1KBBlock: 32
   P1KBMedKick: 99
   P1JoyMedKick: 350
   P1KBMedPunch: 118
@@ -917,6 +918,14 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 144032581, guid: ce162cdc07505a040886ab6a203cf858, type: 3}
       propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 936736520, guid: ce162cdc07505a040886ab6a203cf858, type: 3}
+      propertyPath: m_Offset.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 936736520, guid: ce162cdc07505a040886ab6a203cf858, type: 3}
+      propertyPath: m_Offset.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9128007506608500921, guid: ce162cdc07505a040886ab6a203cf858,

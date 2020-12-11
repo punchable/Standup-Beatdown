@@ -7,12 +7,6 @@ public class PlayerLog
 {
     [SerializeField]
     private LayerMask stage;
-    [SerializeField]
-    private KeyCode medKickKey;
-    [SerializeField]
-    private KeyCode medPunchKey;
-    [SerializeField]
-    private KeyCode jumpKey;
 
     private float jumpForce = 10f;
 
@@ -27,9 +21,6 @@ public class PlayerLog
 
     public LayerMask Stage { get => stage; }
     public float JumpForce { get => jumpForce; }
-    public KeyCode MedKickKey { get => medKickKey; set => medKickKey = value; }
-    public KeyCode MedPunchKey { get => medPunchKey; set => medPunchKey = value; }
-    public KeyCode JumpKey { get => jumpKey; set => jumpKey = value; }
     public bool IsInvincible { get => isInvincible; set => isInvincible = value; }
     public float InvincibleTimer { get => invincibleTimer; set => invincibleTimer = value; }
     public float TimeInvincible { get => timeInvincible; set => timeInvincible = value; }

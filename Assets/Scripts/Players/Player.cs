@@ -25,6 +25,7 @@ public class Player : MonoBehaviour
 
     private Animator anim;
     private Rigidbody2D rb;
+    [SerializeField]
     private Collider2D footCollider;
 
     [SerializeField]
@@ -67,7 +68,6 @@ public class Player : MonoBehaviour
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
         movement = GetComponent<PlayerMovement>();
-        footCollider = GetComponentInChildren<Collider2D>();
         attackCollider = GetComponent<Collider2D>();
         Speed = 100f;
         playerAnimator = new PlayerAnimator(this);
@@ -83,7 +83,7 @@ public class Player : MonoBehaviour
 
         PlayerAnimations[] animations = new PlayerAnimations[]
         {
-            new PlayerAnimations("idle", "hit"),
+            new PlayerAnimations("idle", "hit", "block"),
             new PlayerAnimations("walk", "jumping"),
             new PlayerAnimations("walkBack", "jumping"),
             new PlayerAnimations("block"),
@@ -130,6 +130,19 @@ public class Player : MonoBehaviour
     {
         movement.Move(transform);
 
+
+        if (Master.Instance.ControlState == "controller")
+        {
+            if (inputs.vertP1Joy < 0 && ID == 0)
+            {
+                movement.Jump();
+            }
+            else if (inputs.vertP2Joy < 0 && ID == 1)
+            {
+                movement.Jump();
+            }
+        }
+
         //movement.FaceOpponent();
     }
 
@@ -137,7 +150,7 @@ public class Player : MonoBehaviour
     {
         if (amount < 0)
         {
-            if (movement.IsBlocking())
+            if (movement.IsBlocking() || log.IsInvincible)
             {
                 return;
             }
@@ -166,12 +179,14 @@ public class Player : MonoBehaviour
                         commands.Add(new MKCommand(this, inputs.P1JoyMedKick));
                         commands.Add(new MPCommand(this, inputs.P1JoyMedPunch));
                         commands.Add(new PauseCommand(this, inputs.P1JoyPause));
+                        //commands.Add(new BlockCommand(this, inputs.P1JoyBlock));
                         break;
                     case "keyboard":
                         commands.Add(new JumpCommand(this, inputs.P1KBJump));
                         commands.Add(new MKCommand(this, inputs.P1KBMedKick));
                         commands.Add(new MPCommand(this, inputs.P1KBMedPunch));
                         commands.Add(new PauseCommand(this, KeyCode.Escape));
+                        commands.Add(new BlockCommand(this, inputs.P1KBBlock));
                         break;
                 }
 
@@ -236,7 +251,7 @@ public class Player : MonoBehaviour
 
         if (opponent != null)
         {
-            if (opponent.State.currentState == PLAYERSTATE.ATTACKING)
+            if (opponent.State.currentState == PLAYERSTATE.ATTACKING && state.currentState != PLAYERSTATE.BLOCKING)
             {
                 AdjustHealth(-1);
             }

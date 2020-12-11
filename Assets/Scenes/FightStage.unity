@@ -483,8 +483,9 @@ MonoBehaviour:
   horizP2Joy: 0
   vertP2KB: 0
   horizP2KB: 0
-  P1KBJump: 32
-  P2KBJump: 13
+  P1KBJump: 119
+  P2KBJump: 273
+  P1KBBlock: 32
   P1KBMedKick: 99
   P1JoyMedKick: 350
   P1KBMedPunch: 118

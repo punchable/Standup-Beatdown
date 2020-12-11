@@ -25,7 +25,7 @@ public class PlayerMovement : MonoBehaviour
         }
         else if (animTimer < 0)
         {
-            player.PlayerAnimator.EndAnim();
+            player.PlayerAnimator.EndAnim(player.PlayerAnimator.CurrAnim);
             animTimer = 0;
         }
     }
@@ -90,7 +90,7 @@ public class PlayerMovement : MonoBehaviour
     {
         player.Rb.velocity = new Vector2(player.Direction.x * player.Speed * Time.deltaTime, player.Rb.velocity.y);
 
-        if (player.Direction.x != 0 && player.Log.isGrounded && !IsAttacking())
+        if (player.Direction.x != 0 && IsGrounded() && !IsAttacking() && !IsBlocking())
         {
             player.State.SetState(PLAYERSTATE.WALK);
             //transform.localScale = new Vector3(player.Direction.x < 0 ? 1 : -1, 1, 1);
@@ -119,7 +119,7 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
-        if (player.Direction.x == 0 && player.Rb.velocity.y == 0 && IsGrounded() && !IsAttacking())
+        if (player.Direction.x == 0 && player.Rb.velocity.y == 0 && IsGrounded() && !IsAttacking() && !IsBlocking())
         {
             player.PlayerAnimator.SetAnimation("idle");
             player.State.SetState(PLAYERSTATE.IDLE);
@@ -128,12 +128,16 @@ public class PlayerMovement : MonoBehaviour
 
     public void Jump()
     {
-        if (player.Log.isGrounded)
+        if (player.State.subState != PLAYERSTATE.JUMPING)
         {
             player.Rb.AddForce(new Vector2(0, player.Log.JumpForce), ForceMode2D.Impulse);
             player.PlayerAnimator.SetAnimation("jumping");
-            player.Log.isGrounded = false;
             player.State.SetSubState(PLAYERSTATE.JUMPING);
+            player.Log.isGrounded = false;
+        }
+        else
+        {
+
         }
     }
 
@@ -142,6 +146,10 @@ public class PlayerMovement : MonoBehaviour
         if (player.Log.isGrounded && !IsBlocking())
         {
             player.PlayerAnimator.SetAnimation("block");
+            animTimer = 1.5f;
+            player.State.SetState(PLAYERSTATE.BLOCKING);
+            player.Log.IsInvincible = true;
+            player.Log.InvincibleTimer = 2.0f;
         }
     }
 
@@ -163,13 +171,13 @@ public class PlayerMovement : MonoBehaviour
 
     public void mediumPunch()
     {
-        if (player.Log.isGrounded)
+        if (IsGrounded() && player.State.currentState != PLAYERSTATE.ATTACKING)
         {
             player.PlayerAnimator.SetAnimation("mediumPunch");
             animTimer = player.PlayerAnimator.medPunch;
             player.State.SetState(PLAYERSTATE.ATTACKING);
         }
-        else
+        else if (!IsGrounded() && player.State.currentState != PLAYERSTATE.ATTACKING)
         {
             player.PlayerAnimator.SetAnimation("jumpMedPunch");
             animTimer = player.PlayerAnimator.medPunch;
@@ -179,10 +187,9 @@ public class PlayerMovement : MonoBehaviour
 
     public bool IsGrounded()
     {
-        RaycastHit2D hit = Physics2D.BoxCast(player.FootCollider.bounds.center,
-            player.FootCollider.bounds.size, 0, Vector2.down, 0.1f, player.Log.Stage);
+        RaycastHit2D hit = Physics2D.Raycast(player.FootCollider.bounds.center, Vector2.down, 0.5f, player.Log.Stage);
 
-        if (hit.collider != null && (hit.collider != player.BodyCollider || hit.collider != player.AttackCollider || hit.collider != player.FootCollider))
+        if (hit.collider != null)
         {
             player.Log.isGrounded = true;
             player.State.SetSubState(PLAYERSTATE.GROUNDED);

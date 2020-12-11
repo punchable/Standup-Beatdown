@@ -65,7 +65,7 @@ public class MainMenuMananger : MonoBehaviour
                 switch (Master.Instance.ControlState)
                 {
                     case "controller":
-                        if (input.horizP1Joy > 0)
+                        if (input.horizP1Joy < 0)
                         {
                             menuOptions[activeElement1].selectedP1 = false;
                             if (activeElement1 > 0)
@@ -78,7 +78,7 @@ public class MainMenuMananger : MonoBehaviour
                             }
                         }
 
-                        if (input.horizP1Joy < 0)
+                        if (input.horizP1Joy > 0)
                         {
                             menuOptions[activeElement1].selectedP1 = false;
                             if (activeElement1 < menuOptions.Length - 1)
@@ -134,7 +134,7 @@ public class MainMenuMananger : MonoBehaviour
                 switch (Master.Instance.ControlStateP2)
                 {
                     case "controller":
-                        if (input.horizP2Joy > 0)
+                        if (input.horizP2Joy < 0)
                         {
                             menuOptions[activeElement2].selectedP2 = false;
                             if (activeElement2 > 0)
@@ -147,7 +147,7 @@ public class MainMenuMananger : MonoBehaviour
                             }
                         }
 
-                        if (input.horizP2Joy < 0)
+                        if (input.horizP2Joy > 0)
                         {
                             menuOptions[activeElement2].selectedP2 = false;
                             if (activeElement2 < menuOptions.Length - 1)

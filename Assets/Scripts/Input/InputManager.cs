@@ -16,15 +16,17 @@ public class InputManager : MonoBehaviour
     public float vertP2KB;
     public float horizP2KB;
 
-    public KeyCode P1KBJump = KeyCode.A;
+    public KeyCode P1KBJump = KeyCode.W;
     public KeyCode P2KBJump = KeyCode.UpArrow;
 
+    public KeyCode P1KBBlock = KeyCode.Space;
     public KeyCode P1KBMedKick = KeyCode.C;
     public KeyCode P1JoyMedKick = KeyCode.Joystick1Button0;
     public KeyCode P1KBMedPunch = KeyCode.V;
     public KeyCode P1JoyMedPunch = KeyCode.Joystick1Button1;
     public KeyCode P1JoyPause = KeyCode.Joystick1Button7;
 
+    
     public KeyCode P2KBMedKick = KeyCode.K;
     public KeyCode P2JoyMedKick = KeyCode.Joystick2Button0;
     public KeyCode P2KBMedPunch = KeyCode.P;
@@ -91,6 +93,7 @@ public class InputManager : MonoBehaviour
         }
     }
 
+    //starting to config re-configurable controls but got distracted as this isn't critical atm
     public void SetKey(int id, string input, KeyCode key)
     {
         switch (id)

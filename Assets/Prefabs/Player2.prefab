@@ -57,14 +57,12 @@ MonoBehaviour:
     stage:
       serializedVersion: 2
       m_Bits: 256
-    medKickKey: 108
-    medPunchKey: 112
-    jumpKey: 273
     isGrounded: 1
   MuShPrefab: {fileID: 0}
   Speed: 0
   ID: 0
   fighterSel: 
+  footCollider: {fileID: 7098151690451787032}
   bodyCollider: {fileID: 9180128612009969634}
 --- !u!114 &-1858893643631793330
 MonoBehaviour:
@@ -91,6 +89,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentState: 0
+  subState: 0
 --- !u!212 &3176683311019515665
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -309,7 +308,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.051855564, y: 2.7483451}
+  m_Offset: {x: -0.051855564, y: 3}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}

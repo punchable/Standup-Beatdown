@@ -35,7 +35,7 @@ public class PlayerAnimator
         }
         else
         {
-            EndAnim();
+            EndAnim(currAnim);
             timer = 0;
         }
     }
@@ -76,17 +76,17 @@ public class PlayerAnimator
         }
     }
 
-    public void EndAnim()
+    public void EndAnim(string anim)
     {
-        SetAnimation("idle");
-        player.State.SetState(PLAYERSTATE.IDLE);
 
-        if (currAnim == "hit")
+        if (currAnim == anim)
         {
-            animations["hit"].Active = false;
+            animations[anim].Active = false;
             animations["idle"].Active = true;
             currAnim = "idle";
         }
+        SetAnimation("idle");
+        player.State.SetState(PLAYERSTATE.IDLE);
     }
 }
 
