@@ -368,14 +368,18 @@ MonoBehaviour:
   horizP2KB: 0
   P1KBJump: 32
   P2KBJump: 13
+  P1KBBlock: 32
   P1KBMedKick: 0
-  P1JoyMedKick: 0
   P1KBMedPunch: 0
+  P1JoyBlock: 352
+  P1JoyMedKick: 0
   P1JoyMedPunch: 0
   P1JoyPause: 357
+  P2KBBlock: 13
   P2KBMedKick: 0
-  P2JoyMedKick: 0
   P2KBMedPunch: 0
+  P2JoyMedKick: 0
+  P2JoyBlock: 372
   P2JoyMedPunch: 0
   P2JoyPause: 377
 --- !u!1 &867001433 stripped

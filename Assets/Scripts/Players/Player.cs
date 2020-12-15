@@ -175,11 +175,11 @@ public class Player : MonoBehaviour
                 switch (Master.Instance.ControlState)
                 {
                     case "controller":
-                        //commands.Add(new JumpCommand(this, inputs.vertP1Joy)); shit.. gotta convert this somehow to account for Joystick pos/neg value
+                        
                         commands.Add(new MKCommand(this, inputs.P1JoyMedKick));
                         commands.Add(new MPCommand(this, inputs.P1JoyMedPunch));
                         commands.Add(new PauseCommand(this, inputs.P1JoyPause));
-                        //commands.Add(new BlockCommand(this, inputs.P1JoyBlock));
+                        commands.Add(new BlockCommand(this, inputs.P1JoyBlock));
                         break;
                     case "keyboard":
                         commands.Add(new JumpCommand(this, inputs.P1KBJump));
@@ -189,27 +189,30 @@ public class Player : MonoBehaviour
                         commands.Add(new BlockCommand(this, inputs.P1KBBlock));
                         break;
                 }
-
                 break;
+
             case 1:
                 fighterSel = Master.Instance.FighterSel2;
 
                 switch (Master.Instance.ControlStateP2)
                 {
                     case "controller":
-                        //commands.Add(new JumpCommand(this, inputs.vertP2Joy)); shit.. gotta convert this somehow to account for Joystick pos/neg value
+                        
                         commands.Add(new MKCommand(this, inputs.P2JoyMedKick));
                         commands.Add(new MPCommand(this, inputs.P2JoyMedPunch));
                         commands.Add(new PauseCommand(this, inputs.P2JoyPause));
+                        commands.Add(new BlockCommand(this, inputs.P2JoyBlock));
                         break;
                     case "keyboard":
                         commands.Add(new JumpCommand(this, inputs.P2KBJump));
                         commands.Add(new MKCommand(this, inputs.P2KBMedKick));
                         commands.Add(new MPCommand(this, inputs.P2KBMedPunch));
                         commands.Add(new PauseCommand(this, KeyCode.Escape));
+                        commands.Add(new BlockCommand(this, inputs.P2KBBlock));
                         break;
                 }
                 break;
+
         }
     }
 

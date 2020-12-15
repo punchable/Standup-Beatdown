@@ -350,24 +350,24 @@ public class PreMenuManager : MonoBehaviour
                 if(master.ControlState == "keyboard")
                 {
                     p1Movement.text = "Left/Right:  [A]/[S]" + "\r\n" + "Jump:  [W]";
-                    p1Attacks.text = "Medium Kick: [C]" + "\r\n" + "Medium Punch: [V]";
+                    p1Attacks.text = "Block: [spacebar]" + "\r\n" + "Medium Kick: [C]" + "\r\n" + "Medium Punch: [V]";
                 }
                 else
                 {
                     p1Movement.text = "Left/Right:  Left Joystick" + "\r\n" + "Jump:  Up on Left Joystick";
-                    p1Attacks.text = "Medium Kick: [A]" + "\r\n" + "Medium Punch: [B]";
+                    p1Attacks.text = "Block: [Y]" + "\r\n" + "Medium Kick: [A]" + "\r\n" + "Medium Punch: [B]";
                 }
                 break;
             case 1:
                 if (master.ControlState == "keyboard")
                 {
                     p2Movement.text = "Left/Right:  [left/right arrows]" + "\r\n" + "Jump:  [up arrow]";
-                    p2Attacks.text = "Medium Kick: [P]" + "\r\n" + "Medium Punch: [K]";
+                    p2Attacks.text = "Block: [return]" + "\r\n" + "Medium Kick: [P]" + "\r\n" + "Medium Punch: [K]";
                 }
                 else
                 {
                     p2Movement.text = "Left/Right:  Left Joystick" + "\r\n" + "Jump:  Up on Left Joystick";
-                    p2Attacks.text = "Medium Kick: [A]" + "\r\n" + "Medium Punch: [B]";
+                    p2Attacks.text = "Block: [Y]" + "\r\n" + "Medium Kick: [A]" + "\r\n" + "Medium Punch: [B]";
                 }
                 break;
         }

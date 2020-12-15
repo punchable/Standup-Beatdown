@@ -21,15 +21,17 @@ public class InputManager : MonoBehaviour
 
     public KeyCode P1KBBlock = KeyCode.Space;
     public KeyCode P1KBMedKick = KeyCode.C;
-    public KeyCode P1JoyMedKick = KeyCode.Joystick1Button0;
     public KeyCode P1KBMedPunch = KeyCode.V;
+    public KeyCode P1JoyBlock = KeyCode.Joystick1Button2;
+    public KeyCode P1JoyMedKick = KeyCode.Joystick1Button0;
     public KeyCode P1JoyMedPunch = KeyCode.Joystick1Button1;
     public KeyCode P1JoyPause = KeyCode.Joystick1Button7;
 
-    
+    public KeyCode P2KBBlock = KeyCode.Return;
     public KeyCode P2KBMedKick = KeyCode.K;
-    public KeyCode P2JoyMedKick = KeyCode.Joystick2Button0;
     public KeyCode P2KBMedPunch = KeyCode.P;
+    public KeyCode P2JoyMedKick = KeyCode.Joystick2Button0;
+    public KeyCode P2JoyBlock = KeyCode.Joystick2Button2;
     public KeyCode P2JoyMedPunch = KeyCode.Joystick2Button1;
     public KeyCode P2JoyPause = KeyCode.Joystick2Button7;
 
