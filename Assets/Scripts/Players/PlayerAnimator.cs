@@ -7,7 +7,8 @@ public class PlayerAnimator
 {
     private Player player;
     private string currAnim;
-    public float medKick = 0.65f;
+    public float hit = 0.35f;
+    public float medKick = 0.50f;
     public float medPunch = 0.55f;
     private float timer = 0;
 

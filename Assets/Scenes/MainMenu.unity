@@ -220,13 +220,16 @@ MonoBehaviour:
   P2KBJump: 13
   P1KBBlock: 32
   P1KBMedKick: 99
-  P1JoyMedKick: 350
   P1KBMedPunch: 118
+  P1JoyBlock: 352
+  P1JoyMedKick: 350
   P1JoyMedPunch: 351
   P1JoyPause: 357
+  P2KBBlock: 13
   P2KBMedKick: 107
-  P2JoyMedKick: 370
   P2KBMedPunch: 112
+  P2JoyMedKick: 370
+  P2JoyBlock: 372
   P2JoyMedPunch: 371
   P2JoyPause: 377
 --- !u!1 &519420028
@@ -634,6 +637,11 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 579431157, guid: 54125191d2a069b4daff74a3f4ef439a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 876515402536568244, guid: 54125191d2a069b4daff74a3f4ef439a,
+        type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}

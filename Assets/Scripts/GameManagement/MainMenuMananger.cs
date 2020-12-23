@@ -48,12 +48,19 @@ public class MainMenuMananger : MonoBehaviour
     public void Start()
     {
         master.GameState = "FighterSel";
+
+        if (master.GameMode == "AI")
+        {
+            GameObject aiFighter = GameObject.Find(master.aiFighter);
+            aiFighter.GetComponent<ButtonRef>().selectedP2 = true;
+
+            master.fighterP2 = master.aiFighter;
+        }
     }
 
     public void Update()
     {
         menuOptions[activeElement1].selectedP1 = true;
-        menuOptions[activeElement2].selectedP2 = true;
 
         p1PrevAnim.runtimeAnimatorController = Resources.Load("Animators/" + menuOptions[activeElement1].name) as RuntimeAnimatorController;
         p2PrevAnim.runtimeAnimatorController = Resources.Load("Animators/" + menuOptions[activeElement2].name) as RuntimeAnimatorController;
@@ -126,70 +133,74 @@ public class MainMenuMananger : MonoBehaviour
                 }
             }
         }
-
-        if (!lockedIn2)
+        if (master.GameMode == "Local")
         {
-            if (timerDelay2 <= 0)
+            menuOptions[activeElement2].selectedP2 = true;
+
+            if (!lockedIn2)
             {
-                switch (Master.Instance.ControlStateP2)
+                if (timerDelay2 <= 0)
                 {
-                    case "controller":
-                        if (input.horizP2Joy < 0)
-                        {
-                            menuOptions[activeElement2].selectedP2 = false;
-                            if (activeElement2 > 0)
+                    switch (Master.Instance.ControlStateP2)
+                    {
+                        case "controller":
+                            if (input.horizP2Joy < 0)
                             {
-                                activeElement2--;
+                                menuOptions[activeElement2].selectedP2 = false;
+                                if (activeElement2 > 0)
+                                {
+                                    activeElement2--;
+                                }
+                                else
+                                {
+                                    activeElement2 = menuOptions.Length - 1;
+                                }
                             }
-                            else
-                            {
-                                activeElement2 = menuOptions.Length - 1;
-                            }
-                        }
 
-                        if (input.horizP2Joy > 0)
-                        {
-                            menuOptions[activeElement2].selectedP2 = false;
-                            if (activeElement2 < menuOptions.Length - 1)
+                            if (input.horizP2Joy > 0)
                             {
-                                activeElement2++;
+                                menuOptions[activeElement2].selectedP2 = false;
+                                if (activeElement2 < menuOptions.Length - 1)
+                                {
+                                    activeElement2++;
+                                }
+                                else
+                                {
+                                    activeElement2 = 0;
+                                }
                             }
-                            else
-                            {
-                                activeElement2 = 0;
-                            }
-                        }
-                        timerDelay2 = inputDelay;
-                        break;
+                            timerDelay2 = inputDelay;
+                            break;
 
-                    case "keyboard":
-                        if (input.horizP2KB < 0 )
-                        {
-                            menuOptions[activeElement2].selectedP2 = false;
-                            if (activeElement2 > 0)
+                        case "keyboard":
+                            if (input.horizP2KB < 0)
                             {
-                                activeElement2--;
+                                menuOptions[activeElement2].selectedP2 = false;
+                                if (activeElement2 > 0)
+                                {
+                                    activeElement2--;
+                                }
+                                else
+                                {
+                                    activeElement2 = menuOptions.Length - 1;
+                                }
                             }
-                            else
-                            {
-                                activeElement2 = menuOptions.Length - 1;
-                            }
-                        }
 
-                        if (input.horizP2KB > 0 )
-                        {
-                            menuOptions[activeElement2].selectedP2 = false;
-                            if (activeElement2 < menuOptions.Length - 1)
+                            if (input.horizP2KB > 0)
                             {
-                                activeElement2++;
+                                menuOptions[activeElement2].selectedP2 = false;
+                                if (activeElement2 < menuOptions.Length - 1)
+                                {
+                                    activeElement2++;
+                                }
+                                else
+                                {
+                                    activeElement2 = 0;
+                                }
                             }
-                            else
-                            {
-                                activeElement2 = 0;
-                            }
-                        }
-                        timerDelay2 = inputDelay;
-                        break;
+                            timerDelay2 = inputDelay;
+                            break;
+                    }
                 }
             }
         }

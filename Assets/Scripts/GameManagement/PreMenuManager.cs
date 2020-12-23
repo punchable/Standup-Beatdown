@@ -19,6 +19,7 @@ public class PreMenuManager : MonoBehaviour
     public ButtonRef[] menuOptions;
     public ButtonRef[] controlOptions;
     public ButtonRef[] preControls;
+    public ButtonRef[] campaignMap;
 
     [SerializeField]
     private GameObject controlsPanel;
@@ -26,6 +27,8 @@ public class PreMenuManager : MonoBehaviour
     private GameObject preMenuPanel;
     [SerializeField]
     private GameObject preControlsPanel;
+    [SerializeField]
+    private GameObject campaignPanel;
 
     [SerializeField]
     private GameObject controlsTextP1;
@@ -89,6 +92,7 @@ public class PreMenuManager : MonoBehaviour
 
                 case "preMenu":
                     menuOptions[activeElement1].selectedP1 = true;
+                    menuOptions[activeElement1].selectedP2 = false;
                     if (input.vertP1KB > 0 || input.vertP1Joy < 0)
                     {
                         menuOptions[activeElement1].selectedP1 = false;
@@ -147,6 +151,37 @@ public class PreMenuManager : MonoBehaviour
                     }
                     timer = inputDelay;
                     break;
+
+                case "campaignMap":
+                    campaignMap[activeElement1].selectedP1 = true;
+                    campaignMap[activeElement1].selectedP2 = false;
+                    if (input.horizP1KB < 0 || input.horizP1Joy < 0)
+                    {
+                        campaignMap[activeElement1].selectedP1 = false;
+                        if (activeElement1 > 0)
+                        {
+                            activeElement1--;
+                        }
+                        else
+                        {
+                            activeElement1 = campaignMap.Length - 1;
+                        }
+                    }
+
+                    if (input.horizP1KB > 0 || input.horizP1Joy > 0)
+                    {
+                        campaignMap[activeElement1].selectedP1 = false;
+                        if (activeElement1 < campaignMap.Length - 1)
+                        {
+                            activeElement1++;
+                        }
+                        else
+                        {
+                            activeElement1 = 0;
+                        }
+                    }
+                    timer = inputDelay;
+                    break;
             }
         }
 
@@ -179,6 +214,10 @@ public class PreMenuManager : MonoBehaviour
                         master.GameState = "preMenu";
                         break;
                 }
+            }
+            else if (master.GameState == "campaignMap")
+            {
+                HandleAILevelSel(activeElement1);
             }
         }
 
@@ -216,10 +255,12 @@ public class PreMenuManager : MonoBehaviour
             {
                 case 0:
                     master.NumOfPlayers = 1;
+                    master.GameMode = "AI";
                     LoadMenu();
                     break;
                 case 1:
                     master.NumOfPlayers = 2;
+                    master.GameMode = "Local";
                     LoadMenu();
                     break;
                 case 2:
@@ -261,10 +302,26 @@ public class PreMenuManager : MonoBehaviour
             }
         }
 
+        void HandleAILevelSel(int level)
+        {
+            master.aiFighter = campaignMap[level].gameObject.name;
+            campaignPanel.SetActive(false);
+            master.GoToScene("MainMenu");
+        }
+
         void LoadMenu()
         {
             master.GameState = "loading";
-            master.GoToScene("MainMenu");
+            if (master.GameMode == "AI")
+            {
+                campaignPanel.SetActive(true);
+                master.GameState = "campaignMap";
+            }
+            else if (master.GameMode == "Local")
+            {
+                master.GoToScene("MainMenu");
+            }
+
         }
 
         timer -= Time.deltaTime;

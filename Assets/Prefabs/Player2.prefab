@@ -58,12 +58,13 @@ MonoBehaviour:
       serializedVersion: 2
       m_Bits: 256
     isGrounded: 1
-  MuShPrefab: {fileID: 0}
   Speed: 0
   ID: 0
   fighterSel: 
   footCollider: {fileID: 7098151690451787032}
   bodyCollider: {fileID: 9180128612009969634}
+  opponent: {fileID: 3167881177055680642, guid: 6b0cb0127b51ceb4f935db2a9a4168ae,
+    type: 3}
 --- !u!114 &-1858893643631793330
 MonoBehaviour:
   m_ObjectHideFlags: 0

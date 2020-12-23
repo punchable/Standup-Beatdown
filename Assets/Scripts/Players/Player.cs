@@ -17,9 +17,7 @@ public class Player : MonoBehaviour
 
     private InputManager inputs;
 
-    public GameObject MuShPrefab;
     public float Speed;
-
     public int ID;
     public string fighterSel;
 
@@ -27,11 +25,15 @@ public class Player : MonoBehaviour
     private Rigidbody2D rb;
     [SerializeField]
     private Collider2D footCollider;
-
     [SerializeField]
     private Collider2D bodyCollider;
+
     private Collider2D attackCollider;
     private Vector2 direction;
+
+    [SerializeField]
+    private GameObject opponent;
+    private Player opponentScript;
 
     private PlayerMovement movement;
     private PlayerState state;
@@ -49,6 +51,8 @@ public class Player : MonoBehaviour
     public PlayerAnimator PlayerAnimator { get => playerAnimator; }
     public UiManager Manager { get => manager; }
     public PlayerState State { get => state; set => state = value; }
+    public GameObject Opponent { get => opponent; }
+    public Player OpponentScript { get => opponentScript; set => opponentScript = value; }
 
     public List<Commands> commands = new List<Commands>();
 
@@ -74,12 +78,14 @@ public class Player : MonoBehaviour
         master = FindObjectOfType<Master>();
         manager = FindObjectOfType<UiManager>();
         inputs = FindObjectOfType<InputManager>();
+
+
+        IdPlayer();
+        SetUpFighter();
     }
 
     private void Start()
     {
-        IdPlayer();
-        SetUpFighter();
 
         PlayerAnimations[] animations = new PlayerAnimations[]
         {
@@ -95,6 +101,7 @@ public class Player : MonoBehaviour
             new PlayerAnimations("jumpMedPunch"),
             new PlayerAnimations("hit"),
             new PlayerAnimations("death"),
+            new PlayerAnimations("victory"),
             //new PlayerAnimations(""),
         };
         playerAnimator.AddAnimations(animations);
@@ -105,24 +112,36 @@ public class Player : MonoBehaviour
 
     public void Update()
     {
-        movement.HandleInput();
-        movement.HandleAir();
-
         manager.UpdateHealth(ID, this);
+        if (log.CurrHealth > 0)
+        {
+            movement.HandleInput();
+            movement.HandleAir();
 
-        if (log.InvincibleTimer > 0)
-        {
-            log.InvincibleTimer -= Time.deltaTime;
+            if (log.InvincibleTimer > 0)
+            {
+                log.InvincibleTimer -= Time.deltaTime;
+            }
+            else if (log.InvincibleTimer < 0)
+            {
+                log.InvincibleTimer = 0;
+                log.IsInvincible = false;
+            }
+
+            if (master.GameState == "paused")
+            {
+                state.SetState(PLAYERSTATE.PAUSED);
+            }
         }
-        else if (log.InvincibleTimer < 0)
+        else
         {
-            log.InvincibleTimer = 0;
-            log.IsInvincible = false;
+            state.SetState(PLAYERSTATE.DEATH);
+            playerAnimator.SetAnimation("death");
         }
 
-        if (master.GameState == "paused")
+        if(state.currentState == PLAYERSTATE.VICTORY)
         {
-            state.SetState(PLAYERSTATE.PAUSED);
+            playerAnimator.SetAnimation("victory");
         }
     }
 
@@ -156,7 +175,7 @@ public class Player : MonoBehaviour
             }
 
             playerAnimator.SetAnimation("hit");
-            movement.AnimTimer = 1.0f;
+            movement.AnimTimer = playerAnimator.hit;
             state.SetState(PLAYERSTATE.HIT);
             log.IsInvincible = true;
             log.InvincibleTimer = log.TimeInvincible;
@@ -252,7 +271,7 @@ public class Player : MonoBehaviour
     {
         Player opponent = other.GetComponent<Player>();
 
-        if (opponent != null)
+        if (opponent != null && log.CurrHealth != 0)
         {
             if (opponent.State.currentState == PLAYERSTATE.ATTACKING && state.currentState != PLAYERSTATE.BLOCKING)
             {

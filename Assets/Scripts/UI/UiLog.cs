@@ -12,9 +12,14 @@ public class UiLog
     private bool loadingLevel;
     private bool init;
 
+    private int p1Health;
+    private int p2Health;
+
  
     public bool LoadingLevel { get => loadingLevel; set => loadingLevel = value; }
     public bool Init { get => init; set => init = value; }
     public string FighterSel1 { get => fighterSel1; set => fighterSel1 = value; }
     public string FighterSel2 { get => fighterSel2; set => fighterSel2 = value; }
+    public int P1Health { get => p1Health; set => p1Health = value; }
+    public int P2Health { get => p2Health; set => p2Health = value; }
 }

@@ -62,6 +62,10 @@ public class UiManager : MonoBehaviour
 
     public void Update()
     {
+        if (log.P1Health <= 0 || log.P2Health <= 0)
+        {
+            Master.Instance.GameState = "gameOver";
+        }
 
         if (Master.Instance.GameState == "paused")
         {
@@ -178,9 +182,23 @@ public class UiManager : MonoBehaviour
         {
             case 0:
                 p1HealthTxt.text = player.Log.CurrHealth.ToString() + " / " + player.Log.MaxHealth.ToString();
+                log.P1Health = player.Log.CurrHealth;
+
+                if (log.P2Health <= 0)
+                {
+                    player.State.SetState(PLAYERSTATE.VICTORY);
+                    break;
+                }
                 break;
             case 1:
                 p2HealthTxt.text = player.Log.CurrHealth.ToString() + " / " + player.Log.MaxHealth.ToString();
+                log.P2Health = player.Log.CurrHealth;
+
+                if (log.P1Health <= 0)
+                {
+                    player.State.SetState(PLAYERSTATE.VICTORY);
+                    break;
+                }
                 break;
         }
     }

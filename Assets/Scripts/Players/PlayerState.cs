@@ -29,5 +29,6 @@ public enum PLAYERSTATE
 	DEFENDING,
 	HIT,
 	DEATH,
+	VICTORY,
 	PAUSED,
 };

@@ -11,6 +11,8 @@ public class Master : MonoBehaviour
     public string fighterP1 = "none";
     public string fighterP2 = "none";
 
+    public string aiFighter = "none";
+
     private int wins;
     private int losses;
     private int ties;
@@ -68,3 +70,8 @@ public class Master : MonoBehaviour
         SceneManager.LoadSceneAsync("MainMenu", LoadSceneMode.Single);
     }
 }
+
+// GameStates - "preMenu", "preControls", "controlsConfig", "campaignMap", "loading", 
+// GameStates - "FighterSel", "starting"
+
+// GameModes - "AI", "Local"
