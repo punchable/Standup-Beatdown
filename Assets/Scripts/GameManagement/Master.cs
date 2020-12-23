@@ -20,8 +20,8 @@ public class Master : MonoBehaviour
 
     private string controlStateP1 = "keyboard";
     private string controlStateP2 = "keyboard";
-    private string gameState = "none";
-    private string gameMode = "none";
+    public string gameState = "none";
+    public string gameMode = "none";
 
     public string FighterSel1 { get => fighterP1; set => fighterP1 = value; }
     public string FighterSel2 { get => fighterP2; set => fighterP2 = value; }

@@ -40,6 +40,7 @@ public class MainMenuMananger : MonoBehaviour
         p2PrevAnim = p2Preview.GetComponent<Animator>();
 
         master = FindObjectOfType<Master>();
+        master.GameState = "FighterSel";
 
         lockedIn1 = false;
         lockedIn2 = false;
@@ -47,7 +48,6 @@ public class MainMenuMananger : MonoBehaviour
 
     public void Start()
     {
-        master.GameState = "FighterSel";
 
         if (master.GameMode == "AI")
         {
@@ -133,7 +133,8 @@ public class MainMenuMananger : MonoBehaviour
                 }
             }
         }
-        if (master.GameMode == "Local")
+
+        if (Master.Instance.GameMode == "Local")
         {
             menuOptions[activeElement2].selectedP2 = true;
 
