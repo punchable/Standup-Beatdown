@@ -62,7 +62,7 @@ public class PreMenuManager : MonoBehaviour
                 case "preControls":
                     preControls[activeElement1].selectedP1 = true;
                     preControls[activeElement1].selectedP2 = false;
-                    if (input.horizP1KB > 0 || input.horizP1Joy < 0)
+                    if (input.horizP1KB > 0 || input.horizP1Joy < 0 || input.horizP2KB > 0)
                     {
                         preControls[activeElement1].selectedP1 = false;
                         if (activeElement1 > 0)
@@ -75,7 +75,7 @@ public class PreMenuManager : MonoBehaviour
                         }
                     }
 
-                    if (input.horizP1KB < 0 || input.horizP1Joy > 0)
+                    if (input.horizP1KB < 0 || input.horizP1Joy > 0 || input.horizP2KB < 0)
                     {
                         preControls[activeElement1].selectedP1 = false;
                         if (activeElement1 < preControls.Length - 1)
@@ -93,7 +93,7 @@ public class PreMenuManager : MonoBehaviour
                 case "preMenu":
                     menuOptions[activeElement1].selectedP1 = true;
                     menuOptions[activeElement1].selectedP2 = false;
-                    if (input.vertP1KB > 0 || input.vertP1Joy < 0)
+                    if (input.vertP1KB > 0 || input.vertP1Joy < 0 || input.vertP2KB > 0)
                     {
                         menuOptions[activeElement1].selectedP1 = false;
                         if (activeElement1 > 0)
@@ -106,7 +106,7 @@ public class PreMenuManager : MonoBehaviour
                         }
                     }
 
-                    if (input.vertP1KB < 0 || input.vertP1Joy > 0)
+                    if (input.vertP1KB < 0 || input.vertP1Joy > 0 || input.vertP2KB < 0)
                     {
                         menuOptions[activeElement1].selectedP1 = false;
                         if (activeElement1 < menuOptions.Length - 1)
@@ -155,7 +155,7 @@ public class PreMenuManager : MonoBehaviour
                 case "campaignMap":
                     campaignMap[activeElement1].selectedP1 = true;
                     campaignMap[activeElement1].selectedP2 = false;
-                    if (input.horizP1KB < 0 || input.horizP1Joy < 0)
+                    if (input.horizP1KB < 0 || input.horizP1Joy < 0 || input.horizP2KB < 0)
                     {
                         campaignMap[activeElement1].selectedP1 = false;
                         if (activeElement1 > 0)
@@ -168,7 +168,7 @@ public class PreMenuManager : MonoBehaviour
                         }
                     }
 
-                    if (input.horizP1KB > 0 || input.horizP1Joy > 0)
+                    if (input.horizP1KB > 0 || input.horizP1Joy > 0 || input.horizP2KB > 0)
                     {
                         campaignMap[activeElement1].selectedP1 = false;
                         if (activeElement1 < campaignMap.Length - 1)

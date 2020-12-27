@@ -305,10 +305,12 @@ public class MainMenuMananger : MonoBehaviour
         {
             fighterName = "MuSh";
         }
-        else if (fighter == 2)
+        else if (fighter >= 2)
         {
             fighterName = "TomDan";
         }
+        /*
+         * Temp disabled for demo, until characters are complete;
         else if (fighter == 3)
         {
             fighterName = "BertBelly";
@@ -317,7 +319,7 @@ public class MainMenuMananger : MonoBehaviour
         {
             fighterName = "AndrewBaller";
         }
-
+        */
 
         if (fighterName != "none")
         {
