@@ -221,7 +221,7 @@ public class PreMenuManager : MonoBehaviour
             }
         }
 
-        if (Input.GetButtonDown("P1KBCancel"))
+        if (Input.GetButtonDown("P1KBCancel") || Input.GetButtonDown("P1JoyCancel"))
         {
             master.GameState = "preMenu";
             menuOptions[2].selectedP1 = false;
