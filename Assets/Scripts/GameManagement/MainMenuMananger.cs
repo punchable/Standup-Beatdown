@@ -286,7 +286,7 @@ public class MainMenuMananger : MonoBehaviour
         void LoadLevel()
         {
             master.GameState = "starting";
-            master.GoToScene("FightStage");
+            //master.GoToScene("FightStage");
         }
     }
 
@@ -309,8 +309,6 @@ public class MainMenuMananger : MonoBehaviour
         {
             fighterName = "TomDan";
         }
-        /*
-         * Temp disabled for demo, until characters are complete;
         else if (fighter == 3)
         {
             fighterName = "BertBelly";
@@ -319,7 +317,6 @@ public class MainMenuMananger : MonoBehaviour
         {
             fighterName = "AndrewBaller";
         }
-        */
 
         if (fighterName != "none")
         {

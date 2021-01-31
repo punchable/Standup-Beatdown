@@ -69,9 +69,14 @@ public class Master : MonoBehaviour
     {
         SceneManager.LoadSceneAsync("MainMenu", LoadSceneMode.Single);
     }
+
+    public void SetState(string state)
+    {
+        gameState = state;
+    }
 }
 
 // GameStates - "preMenu", "preControls", "controlsConfig", "campaignMap", "loading", 
-// GameStates - "FighterSel", "starting"
+// GameStates - "FighterSel", "starting", "fighting", "paused", "gameOver"
 
 // GameModes - "AI", "Local"

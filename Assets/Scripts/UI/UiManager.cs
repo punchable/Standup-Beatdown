@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class UiManager : MonoBehaviour
 {
-    public static UiManager Instance;
+    //public static UiManager Instance;
 
     [SerializeField]
     private Master master;
@@ -23,6 +23,8 @@ public class UiManager : MonoBehaviour
     private float timer;
     private float inputDelay = 0.25f;
 
+    private float startingTimer = 2f;
+
     [SerializeField]
     private Text p1HealthTxt;
     [SerializeField]
@@ -36,6 +38,7 @@ public class UiManager : MonoBehaviour
 
     public void Awake()
     {
+        /*
         if (Instance == null)
         {
             DontDestroyOnLoad(gameObject);
@@ -45,6 +48,7 @@ public class UiManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        */
 
         util = new UiUtilities(this);
 
@@ -62,8 +66,9 @@ public class UiManager : MonoBehaviour
 
     public void Update()
     {
-        if (log.P1Health <= 0 || log.P2Health <= 0)
+        if (Master.Instance.GameState == "fighting" && (log.P1Health <= 0 || log.P2Health <= 0))
         {
+            EndGame(log.Winner);
             Master.Instance.GameState = "gameOver";
         }
 
@@ -74,6 +79,25 @@ public class UiManager : MonoBehaviour
         else
         {
             comp.PauseMenu.SetActive(false);
+        }
+
+        if (Master.Instance.GameState == "starting")
+        {
+            comp.VsPanel.SetActive(true);
+            comp.P1Fighter.text = log.FighterSel1;
+            comp.P2Fighter.text = log.FighterSel2;
+        }
+        else
+        {
+            comp.VsPanel.SetActive(false);
+        }
+        if (startingTimer > 0 && Master.Instance.GameState == "starting")
+        {
+            startingTimer -= Time.deltaTime;
+        }
+        else if (startingTimer < 0 && Master.Instance.GameState == "starting")
+        {
+            master.GoToScene("FightStage");
         }
 
         if (Master.Instance.GameState == "paused")
@@ -187,6 +211,7 @@ public class UiManager : MonoBehaviour
                 if (log.P2Health <= 0)
                 {
                     player.State.SetState(PLAYERSTATE.VICTORY);
+                    log.Winner = log.FighterSel1;
                     break;
                 }
                 break;
@@ -197,9 +222,15 @@ public class UiManager : MonoBehaviour
                 if (log.P1Health <= 0)
                 {
                     player.State.SetState(PLAYERSTATE.VICTORY);
+                    log.Winner = log.FighterSel2;
                     break;
                 }
                 break;
         }
+    }
+
+    public void EndGame(string winner)
+    {
+
     }
 }

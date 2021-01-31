@@ -9,6 +9,8 @@ public class UiLog
     public string fighterSel1;
     public string fighterSel2;
 
+    public string Winner;
+
     private bool loadingLevel;
     private bool init;
 
