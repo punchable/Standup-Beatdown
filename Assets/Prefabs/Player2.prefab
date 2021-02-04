@@ -36,6 +36,7 @@ Transform:
   m_Children:
   - {fileID: 4103273911050546276}
   - {fileID: 1872195442841945726}
+  - {fileID: 4112629246862187179}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -63,6 +64,8 @@ MonoBehaviour:
   fighterSel: 
   footCollider: {fileID: 7098151690451787032}
   bodyCollider: {fileID: 9180128612009969634}
+  fxHitPoint: {fileID: 4112629246862187179}
+  fx: {fileID: 4558125430035483103, guid: be27dbd6b435ce448849b82186c56ded, type: 3}
   opponent: {fileID: 3167881177055680642, guid: 6b0cb0127b51ceb4f935db2a9a4168ae,
     type: 3}
 --- !u!114 &-1858893643631793330
@@ -322,3 +325,33 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 2.2099638, y: 4.8373113}
   m_EdgeRadius: 0
+--- !u!1 &9097892154567984934
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4112629246862187179}
+  m_Layer: 8
+  m_Name: AtkHitPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4112629246862187179
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9097892154567984934}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 3176683311019515666}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

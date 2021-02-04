@@ -69,7 +69,6 @@ public class UiManager : MonoBehaviour
         if (Master.Instance.GameState == "fighting" && (log.P1Health <= 0 || log.P2Health <= 0))
         {
             EndGame(log.Winner);
-            Master.Instance.GameState = "gameOver";
         }
 
         if (Master.Instance.GameState == "paused")
@@ -91,6 +90,7 @@ public class UiManager : MonoBehaviour
         {
             comp.VsPanel.SetActive(false);
         }
+
         if (startingTimer > 0 && Master.Instance.GameState == "starting")
         {
             startingTimer -= Time.deltaTime;
@@ -212,6 +212,8 @@ public class UiManager : MonoBehaviour
                 {
                     player.State.SetState(PLAYERSTATE.VICTORY);
                     log.Winner = log.FighterSel1;
+                    log.Loser = log.FighterSel2;
+                    log.player1win = true;
                     break;
                 }
                 break;
@@ -223,6 +225,8 @@ public class UiManager : MonoBehaviour
                 {
                     player.State.SetState(PLAYERSTATE.VICTORY);
                     log.Winner = log.FighterSel2;
+                    log.Loser = log.FighterSel1;
+                    log.player1win = false;
                     break;
                 }
                 break;
@@ -231,6 +235,15 @@ public class UiManager : MonoBehaviour
 
     public void EndGame(string winner)
     {
+        if (log.player1win)
+        {
+            Master.Instance.player1win = true;
+        }
+        else
+        {
+            Master.Instance.player1win = false;
+        }
 
+        Master.Instance.GameState = "gameOver";
     }
 }

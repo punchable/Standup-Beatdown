@@ -47,16 +47,28 @@ MonoBehaviour:
   comp:
     pauseMenu: {fileID: 8822426505134199755, guid: afdc29f08fd4e1d44978c524171bc2e9,
       type: 3}
+    endGamePanel: {fileID: 48166710664648611, guid: 000e6ce88e116d4499109276a9652a73,
+      type: 3}
+    vsPanel: {fileID: 176957743589165683, guid: ab31ba6d8ff424d4793ddd2050383faf,
+      type: 3}
     p1HealthTxt: {fileID: 6714488721935739402, guid: 7180945ddb2a77343af648fcf570c4ee,
       type: 3}
     p2HealthTxt: {fileID: 8487731697140754430, guid: d215b23b294a5ed4784bf741b658a046,
       type: 3}
+    p1Fighter: {fileID: 0}
+    p2Fighter: {fileID: 0}
+    p1Portrait: {fileID: 0}
+    p2Portrait: {fileID: 0}
     MuSh: {fileID: 21300000, guid: 86afa8f920bd0334489250b52f744ac2, type: 3}
     BobBig: {fileID: 21300000, guid: 580f0bf8a27b11142819638f8966910f, type: 3}
+    TomDan: {fileID: 21300000, guid: 6f755efc8c4921340b5bcf563a8fd764, type: 3}
+    BertBelly: {fileID: 21300000, guid: abf6de941f0403f449d9a78c3c96ab96, type: 3}
+    AndrewBaller: {fileID: 21300000, guid: a680ab734aaa13b46bb53d465bf375a6, type: 3}
     pauseOptions: []
   log:
     fighterSel1: 
     fighterSel2: 
+    Winner: 
   input: {fileID: 0}
   p1HealthTxt: {fileID: 0}
   p2HealthTxt: {fileID: 0}

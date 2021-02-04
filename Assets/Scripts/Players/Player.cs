@@ -27,9 +27,13 @@ public class Player : MonoBehaviour
     private Collider2D footCollider;
     [SerializeField]
     private Collider2D bodyCollider;
+    [SerializeField]
+    private Transform fxHitPoint;
 
     private Collider2D attackCollider;
     private Vector2 direction;
+
+    public GameObject fx;
 
     [SerializeField]
     private GameObject opponent;
@@ -276,6 +280,8 @@ public class Player : MonoBehaviour
             if (opponent.State.currentState == PLAYERSTATE.ATTACKING && state.currentState != PLAYERSTATE.BLOCKING)
             {
                 AdjustHealth(-1);
+
+                //Transform hitPoint = other.gameObject. FXPoint
             }
         }
     }

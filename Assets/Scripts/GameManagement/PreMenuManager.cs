@@ -47,21 +47,19 @@ public class PreMenuManager : MonoBehaviour
 
     private void Start()
     {
-        master = FindObjectOfType<Master>();
+        master = GameObject.Find("MasterAndCommander").GetComponent<Master>();
+
         master.GameState = "preControls";
     }
    
     private void Update()
     {
-        
-
         if (timer <= 0)
         {
             switch (master.GameState)
             {
                 case "preControls":
                     preControls[activeElement1].selectedP1 = true;
-                    preControls[activeElement1].selectedP2 = false;
                     if (input.horizP1KB > 0 || input.horizP1Joy < 0 || input.horizP2KB > 0)
                     {
                         preControls[activeElement1].selectedP1 = false;
@@ -151,7 +149,7 @@ public class PreMenuManager : MonoBehaviour
                     }
                     timer = inputDelay;
                     break;
-
+/*
                 case "campaignMap":
                     campaignMap[activeElement1].selectedP1 = true;
                     campaignMap[activeElement1].selectedP2 = false;
@@ -182,6 +180,7 @@ public class PreMenuManager : MonoBehaviour
                     }
                     timer = inputDelay;
                     break;
+*/
             }
         }
 
@@ -255,15 +254,20 @@ public class PreMenuManager : MonoBehaviour
             {
                 case 0:
                     master.NumOfPlayers = 1;
-                    master.GameMode = "AI";
+                    master.GameState = "Campaign";
                     LoadMenu();
                     break;
                 case 1:
+                    master.NumOfPlayers = 1;
+                    master.GameMode = "AI";
+                    LoadMenu();
+                    break;
+                case 2:
                     master.NumOfPlayers = 2;
                     master.GameMode = "Local";
                     LoadMenu();
                     break;
-                case 2:
+                case 3:
                     master.GameState = "controlsConfig";
                     activeElement1 = 0;
                     break;
@@ -314,12 +318,15 @@ public class PreMenuManager : MonoBehaviour
             master.GameState = "loading";
             if (master.GameMode == "AI")
             {
-                campaignPanel.SetActive(true);
-                master.GameState = "campaignMap";
+
             }
             else if (master.GameMode == "Local")
             {
                 master.GoToScene("MainMenu");
+            }
+            else if (master.GameMode == "Campaign")
+            {
+
             }
 
         }

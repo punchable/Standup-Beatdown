@@ -18,6 +18,8 @@ public class Master : MonoBehaviour
     private int ties;
     private int numOfPlayers;
 
+    public bool player1win;
+
     private string controlStateP1 = "keyboard";
     private string controlStateP2 = "keyboard";
     public string gameState = "none";
@@ -49,10 +51,23 @@ public class Master : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
     void Update()
     {
 
+        if (gameState == "GameOver")
+        {
+            StartCoroutine(GameOverCoroutine());
+        }
+    }
+
+    IEnumerator GameOverCoroutine()
+    {
+        Debug.Log("Game Ending");
+
+        yield return new WaitForSeconds(5);
+
+
+            GoToScene("EndFightPvP");
     }
 
     public void GoToScene(string sceneName)
@@ -70,9 +85,13 @@ public class Master : MonoBehaviour
         SceneManager.LoadSceneAsync("MainMenu", LoadSceneMode.Single);
     }
 
-    public void SetState(string state)
+    public void ResetableStats()
     {
-        gameState = state;
+        fighterP1 = "none";
+        fighterP2 = "none";
+
+        aiFighter = "none"; 
+        player1win = false;
     }
 }
 
@@ -80,3 +99,5 @@ public class Master : MonoBehaviour
 // GameStates - "FighterSel", "starting", "fighting", "paused", "gameOver"
 
 // GameModes - "AI", "Local"
+
+// Scenes - "PreMenu", "MainMenu", "FightStage", "EndFightPvP" (Should change to Local?)
