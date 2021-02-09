@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class EndFightPvP : MonoBehaviour
+public class EndFightManager : MonoBehaviour
 {
     public GameObject fighter1;
     public GameObject fighter2;
@@ -123,6 +123,7 @@ public class EndFightPvP : MonoBehaviour
     public void EndGame()
     {
         Master.Instance.gameState = "preMenu";
+        Master.Instance.ResetableStats();
         Master.Instance.GoToScene("PreMenu");
     }
 

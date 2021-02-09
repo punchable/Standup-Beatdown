@@ -67,7 +67,7 @@ public class Master : MonoBehaviour
         yield return new WaitForSeconds(5);
 
 
-            GoToScene("EndFightPvP");
+            GoToScene("EndFight");
     }
 
     public void GoToScene(string sceneName)
@@ -100,4 +100,4 @@ public class Master : MonoBehaviour
 
 // GameModes - "AI", "Local"
 
-// Scenes - "PreMenu", "MainMenu", "FightStage", "EndFightPvP" (Should change to Local?)
+// Scenes - "PreMenu", "MainMenu", "FightStage", "EndFight"
